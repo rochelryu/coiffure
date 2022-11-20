@@ -73,7 +73,10 @@ export class AdminController {
     @Request() req,
     @Res() res: Response,
   ) {
-    if (req.session.coiffure_royal_babershop) {
+    if (
+      req.session.coiffure_royal_babershop &&
+      req.session.coiffure_royal_babershop.level === 0
+    ) {
       const error = [];
       let state = true;
       if (admin.firstname.length <= 3) {
@@ -89,7 +92,7 @@ export class AdminController {
         error.push('Votre mot de passe est trop court');
       }
       if (state) {
-        await this.adminService.createAdmin(admin, 0);
+        await this.adminService.createAdmin(admin);
         res.redirect('/admin/gestionnaires');
       } else if (!state) {
         res.redirect('/admin/gestionnaires');
