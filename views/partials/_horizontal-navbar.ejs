@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>RB |
+        <%= title %>
+    </title>
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="../assets/css/style-starter.css">
+
+    <!-- google fonts -->
+    <link href="//fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
+
+
+    <script>
+        function formatDate(date) {
+            const data = new Date(date);
+            document.write(`${data.toLocaleDateString()} ${data.toLocaleTimeString()}`)
+        }
+    </script>
+</head>
+
+<body class="sidebar-menu-collapsed">
+    <div class="se-pre-con"></div>
+    <section>
+        <!-- sidebar menu start -->
+        <div class="sidebar-menu sticky-sidebar-menu">
+
+            <!-- logo start -->
+            <div class="logo">
+                <h1><a href="/admin/dashboard">RB</a></h1>
+            </div>
+
+            <div class="logo-icon text-center">
+                <a href="/admin/dashboard" title="logo"><img src="../assets/images/logo.png" alt="logo-icon"> </a>
+            </div>
+            <!-- //logo end -->
+
+            <div class="sidebar-menu-inner">
+
+                <!-- sidebar nav start -->
+                <ul class="nav nav-pills nav-stacked custom-nav">
+                    <% if ( level === 0 ) { %>
+                        <li><a href="/admin/dashboard"><i class="fa fa-tachometer"></i><span> Dashboard</span></a>
+                        </li>
+                        <% } %>
+                            <li class="menu-list">
+                                <a href="#"><i class="fa fa-cogs"></i>
+            <span>Gestions <i class="lnr lnr-chevron-right"></i></span></a>
+                                <ul class="sub-menu-list">
+                                    <li><a href="/admin/facture">Factures</a> </li>
+                                    <% if ( level === 0 ) { %>
+                                        <li><a href="/admin/service">Services</a> </li>
+                                        <li><a href="/admin/professional">Professionels</a></li>
+                                        <li><a href="/admin/gestionnaires">Gestionnaires</a></li>
+                                        <% } %>
+                                </ul>
+                            </li>
+                            <li><a href="/admin/setting"><i class="fa fa-cog"></i> <span>Paramètres</span></a></li>
+                            <li><a href="/admin/logout"><i class="fa fa-arrow-left"></i> <span>Déconnexion</span></a></li>
+                </ul>
+                <!-- //sidebar nav end -->
+                <!-- toggle button start -->
+                <a class="toggle-btn">
+                    <i class="fa fa-angle-double-left menu-collapsed__left"><span>Cacher</span></i>
+                    <i class="fa fa-angle-double-right menu-collapsed__right"></i>
+                </a>
+                <!-- //toggle button end -->
+            </div>
+        </div>
+
+        <div class="main-content">

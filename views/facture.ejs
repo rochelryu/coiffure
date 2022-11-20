@@ -1,0 +1,94 @@
+<%- include('partials/_horizontal-navbar'); %>
+
+    <!-- content -->
+    <div class="container-fluid content-top-gap">
+
+        <div class="card card_border py-2 mb-4">
+            <div class="card-header">
+                <h4>Créer une facture</h4>
+            </div>
+            <div class="card-body">
+                <form action="/admin/addFacture" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="inputState" class="input__label">Service</label>
+                            <select id="inputState" name="serviceId" class="form-control input-style">
+                                    <% info.allServices.forEach(function(value){ %>
+                                        <option value="<%= value.id %>"><%= value.title %> - <%= value.price %></option>
+                                        
+                                        <% }); %>
+                                </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputStateProfessionel" class="input__label">Professionnel</label>
+                            <select id="inputStateProfessionel" name="professionalId" class="form-control input-style">
+                                    <% info.allProfessionals.forEach(function(value){ %>
+                                        <option value="<%= value.id %>"><%= value.name %></option>
+                                        
+                                        <% }); %>
+                                </select>
+                        </div>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary btn-style mt-4">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4>Liste des Factures</h4>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Numero Facture</th>
+                            <th scope="col">Coût</th>
+                            <th scope="col">Service</th>
+                            <th scope="col">Professionnel</th>
+                            <th scope="col">Date</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <% info.factures.forEach(function(value){ %>
+                            <tr>
+                                <th scope="row">
+                                    <%= value.id %>
+                                </th>
+                                <td>
+                                    <%= value.price %>
+                                </td>
+                                <td>
+                                    <%= value.service %>
+                                </td>
+
+                                <td>
+                                    <%= value.professional %>
+                                </td>
+
+                                <td>
+                                    <script>
+                                        formatDate("<%= value.date %>")
+                                    </script>
+                                </td>
+
+                            </tr>
+                            <% }); %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- //content -->
+
+    <%- include('partials/_footer'); %>
+
+
+        </body>
+
+        </html>

@@ -1,0 +1,89 @@
+<%- include('partials/_horizontal-navbar'); %>
+
+    <!-- content -->
+    <div class="container-fluid content-top-gap">
+
+        <div class="card card_border py-2 mb-4">
+            <div class="card-header">
+                <h4>Créer un gestionnaire</h4>
+            </div>
+            <div class="card-body">
+                <form action="/admin/createAdmin" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4" class="input__label">Contact</label>
+                            <input type="tel" name="contact" class="form-control input-style" id="inputEmail4" placeholder="0102030405">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputPassword4" class="input__label">Mot de passe</label>
+                            <input type="password" name="password" class="form-control input-style" id="inputPassword4" placeholder="xxxxxxxxxxxx">
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="inputAddress" class="input__label">Nom complet</label>
+                            <input type="text" name="firstname" class="form-control input-style" id="inputAddress" placeholder="John Doe">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputState" class="input__label">Sexe</label>
+                            <select id="inputState" name="sexe" class="form-control input-style">
+                                    <option value="Homme" selected>Homme</option>
+                                    <option value="Femme">Femme</option>
+                                </select>
+                        </div>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary btn-style mt-4">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4>Liste des Gestionnaires</h4>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nom Complet</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">Role</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <% info.forEach(function(value){ %>
+                            <tr>
+                                <th scope="row">
+                                    <%= value.id %>
+                                </th>
+                                <td>
+                                    <%= value.firstname %>
+                                </td>
+                                <td>
+                                    <%= value.contact %>
+                                </td>
+                                <% if ( value.level === 0 ) { %>
+                                    <td><span class="badge badge-success">Super Admin</span></td>
+                                    <% }  else { %>
+                                        <td><span class="badge badge-info">Gestionnaire</span></td>
+                                        <% } %>
+                            </tr>
+                            <% }); %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- //content -->
+
+    <%- include('partials/_footer'); %>
+
+
+        </body>
+
+        </html>

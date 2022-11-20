@@ -1,0 +1,204 @@
+<%- include('partials/_horizontal-navbar'); %>
+
+    <!-- content -->
+    <div class="container-fluid content-top-gap">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb my-breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            </ol>
+        </nav>
+        <div class="welcome-msg pt-3 pb-4">
+            <h1>Salut <span class="text-primary">Super Admin</span>,</h1>
+            <p>Voici toutes les statistiques de votre activité.</p>
+        </div>
+
+        <!-- statistics data -->
+        <div class="statistics">
+            <div class="row">
+                <div class="col-xl-6 pr-xl-2">
+                    <div class="row">
+
+
+                        <div class="col-sm-6 pl-sm-2 statistics-grid">
+                            <div class="card card_border border-primary-top p-4">
+                                <i class="lnr lnr-eye"> </i>
+                                <h3 class="text-secondary number">
+                                    <%= info.allGestionnaires %>
+                                </h3>
+                                <p class="stat-text">Total Gestionnaire</p>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-6 pr-sm-2 statistics-grid">
+                            <div class="card card_border border-primary-top p-4">
+                                <i class="lnr lnr-users"> </i>
+                                <h3 class="text-primary number">
+                                    <%= info.allProfessionals %>
+                                </h3>
+                                <p class="stat-text">Total Professionel</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xl-6 pl-xl-2">
+                    <div class="row">
+                        <div class="col-sm-6 pr-sm-2 statistics-grid">
+                            <div class="card card_border border-primary-top p-4">
+                                <i class="lnr lnr-cloud-download"> </i>
+                                <h3 class="text-success number">
+                                    <%= info.allServices %>
+                                </h3>
+                                <p class="stat-text">Total Service</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 pl-sm-2 statistics-grid">
+                            <div class="card card_border border-primary-top p-4">
+                                <i class="lnr lnr-cart"> </i>
+                                <h3 class="text-danger number">
+                                    <%= info.allFacture %>
+                                </h3>
+                                <p class="stat-text">Total Facture</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //statistics data -->
+
+        <!-- charts -->
+        <div class="chart">
+            <div class="row">
+                <div class="col-lg-12 pr-lg-2 chart-grid">
+                    <div class="card text-center card_border">
+                        <div class="card-header chart-grid__header">
+                            Bar Chart
+                        </div>
+                        <div class="card-body">
+                            <!-- bar chart -->
+                            <div id="container">
+                                <canvas id="barchart"></canvas>
+                            </div>
+                            <!-- //bar chart -->
+                        </div>
+                        <div class="card-footer text-muted chart-grid__footer">
+                            Chiffre d'affaire sur 30 jours
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 pl-lg-2 chart-grid">
+                    <div class="card text-center card_border">
+                        <div class="card-header chart-grid__header">
+                            Travail du personnel aujourd'hui
+                        </div>
+                        <div class="card-body">
+                            <!-- line chart -->
+                            <div id="container">
+                                <div class="row">
+                                    <% info.professionals.forEach(function(value){ %>
+                                        <div class="col-sm-3">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>
+                                                        <%= value.name %>
+                                                    </h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p>Nbre d'action :
+                                                        <%= value.nbreWork %>
+                                                    </p>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <span>
+                                                        <%= value.contact %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }); %>
+                                </div>
+                            </div>
+                            <!-- //line chart -->
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12 pl-lg-2 chart-grid">
+                    <div class="card text-center card_border">
+                        <div class="card-header chart-grid__header">
+                            Service utilisé aujourd'hui
+                        </div>
+                        <div class="card-body">
+                            <!-- line chart -->
+                            <div id="container">
+                                <div class="row">
+                                    <% info.services.forEach(function(value){ %>
+                                        <div class="col-sm-3">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>
+                                                        <%= value.title %>
+                                                    </h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p>Nbre de fois :
+                                                        <%= value.nbreWork %>
+                                                    </p>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <span>
+                                                        Prix Unitaire : <%= value.price %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }); %>
+                                </div>
+                            </div>
+                            <!-- //line chart -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- //content -->
+
+    <%- include('partials/_footer'); %>
+
+        <script>
+            const label = [];
+
+
+            new Chart(document.getElementById("barchart"), {
+
+                type: 'bar',
+                data: {
+                    labels: "<%= info.label %>".split(','),
+                    datasets: [{
+                        data: "<%= info.valuePriceFinal %>".split(','),
+                        label: 'Facture',
+                        backgroundColor: "#4755AB",
+                        borderWidth: 1,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                }
+            });
+        </script>
+
+
+        </body>
+
+        </html>

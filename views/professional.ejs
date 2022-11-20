@@ -1,0 +1,75 @@
+<%- include('partials/_horizontal-navbar'); %>
+
+    <!-- content -->
+    <div class="container-fluid content-top-gap">
+
+        <div class="card card_border py-2 mb-4">
+            <div class="card-header">
+                <h4>Créer un professionnel</h4>
+            </div>
+            <div class="card-body">
+                <form action="/admin/addProfessional" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="inputEmail4" class="input__label">Nom du professionnel</label>
+                            <input type="text" name="name" class="form-control input-style" id="inputEmail4" placeholder="John Doe">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputPassword4" class="input__label">Numero de téléphone</label>
+                            <input type="tel" name="contact" class="form-control input-style" id="inputPassword4" placeholder="0102030405">
+                        </div>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary btn-style mt-4">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4>Liste du personnel</h4>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nom du professionnel</th>
+                            <th scope="col">Numero de téléphone</th>
+                            <th scope="col">Nbre Total de Facture</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <% info.forEach(function(value){ %>
+                            <tr>
+                                <th scope="row">
+                                    <%= value.id %>
+                                </th>
+                                <td>
+                                    <%= value.name %>
+                                </td>
+                                <td>
+                                    <%= value.contact %>
+                                </td>
+                                <td>
+                                    <%= value.nbreFacture %>
+                                </td>
+
+                            </tr>
+                            <% }); %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- //content -->
+
+    <%- include('partials/_footer'); %>
+
+
+        </body>
+
+        </html>
